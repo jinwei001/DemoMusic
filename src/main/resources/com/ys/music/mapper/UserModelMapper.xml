@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ys.music.mapper.HomeMapper">
+    <resultMap id="userList" type="com.ys.music.model.UserModel.UserModel">
+        <result property="id"           column="id"         />
+        <result property="username"     column="username"   />
+        <result property="password"     column="password"   />
+    </resultMap>
+
+    <sql id="selectql">
+        select id,username,password from admin
+    </sql>
+
+    <!--用户登录-->
+    <select id="getUser" resultType="com.ys.music.model.UserModel.UserModel" parameterType="String">
+        select * from admin where username=#{name} and password=#{password}
+    </select>
+    <!--根据名字查询用户-->
+    <select id="getUserByName" resultType="com.ys.music.model.UserModel.UserModel" parameterType="String">
+        select * from admin where username=#{name}
+    </select>
+    <!--根据id删除用户-->
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from  admin where id=#{id}
+    </delete>
+    <!--更新用户信息-->
+    <update id="updateUser" parameterType="com.ys.music.model.UserModel.UserModel">
+        update admin set username=#{username},password=#{password} where id=#{id}
+    </update>
+    <!--查询所有用户-->
+    <select id="AllUser" resultMap="userList">
+        <include refid="selectql"></include>
+    </select>
+
+    <!--新增用户-->
+    <insert id="saveUser" parameterType="com.ys.music.model.UserModel.UserModel" keyProperty="id" useGeneratedKeys="true">
+        insert into admin(username,password) values (#{username},#{password})
+    </insert>
+</mapper>

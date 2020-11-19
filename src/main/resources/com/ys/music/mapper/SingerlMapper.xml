@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ys.music.mapper.SingerMapper">
+    <resultMap id="BaseResultList" type="com.ys.music.model.Singer.Singer">
+        <result property="id"           jdbcType="INTEGER"   column="id"            />
+        <result property="name"         jdbcType="VARCHAR"   column="name"          />
+        <result property="sex"          jdbcType="TINYINT"   column="sex"           />
+        <result property="pic"          jdbcType="VARCHAR"   column="pic"           />
+        <result property="birth"        jdbcType="TIMESTAMP" column="birth"         />
+        <result property="location"     jdbcType="VARCHAR"   column="location"      />
+        <result property="introduction" jdbcType="VARCHAR"   column="introduction"  />
+    </resultMap>
+
+    <sql id="selector">
+        select id,name,sex,pic,birth,location,introduction from singer
+    </sql>
+    <!--新增-->
+    <insert id="addSinger" parameterType="com.ys.music.model.Singer.Singer">
+        insert into singer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="birth != null">
+                birth,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="birth != null">
+                #{birth},
+            </if>
+            <if test="location != null">
+                #{location},
+            </if>
+            <if test="introduction != null">
+                #{introduction},
+            </if>
+        </trim>
+    </insert>
+    <!--修改-->
+    <update id="updateSinger" parameterType="com.ys.music.model.Singer.Singer">
+        update singer
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="birth != null">
+                birth = #{birth},
+            </if>
+            <if test="location != null">
+                location = #{location},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <!--删除-->
+    <delete id="delSinger" parameterType="java.lang.Integer">
+        delete from singer where id=#{id}
+    </delete>
+    <!--根据id查询-->
+    <select id="selectSingerByID" resultMap="BaseResultList" parameterType="java.lang.Integer">
+        <include refid="selector"></include> where id=#{id};
+    </select>
+    <!--查询所有-->
+    <select id="allSinger" resultMap="BaseResultList">
+        <include refid="selector"></include>
+    </select>
+    <!--查询所有-->
+    <select id="selectSingerByName" resultMap="BaseResultList" parameterType="java.lang.String">
+        <include refid="selector"></include> where name like #{name}
+    </select>
+
+</mapper>
