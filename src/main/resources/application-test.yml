@@ -1,0 +1,14 @@
+spring:
+ datasource:
+    type : com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/webtest?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8
+    username : root
+    password : xz34567
+
+server:
+  port: 8888
+
+mybatis:
+  type-aliases-package : com.ys.music.mapper
+  mapper-locations : classpath:com/ys/music/mapper/*.xml
