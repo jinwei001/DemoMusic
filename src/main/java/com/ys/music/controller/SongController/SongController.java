@@ -7,6 +7,7 @@ import com.ys.music.service.SongService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +21,13 @@ public class SongController {
     @Autowired
     private SongService songService;
     int code = 200;
+    /***
+     * 练习从配置文件中ftp的属性值
+     */
+    @Value("${ftp.show}")
+    private String ftpshow;
+    @Value("${ftp.unit}")
+    private String ftpunit;
 
     @ApiOperation(value = "新增", notes = "新增")
     @PostMapping("/add")
@@ -49,7 +57,8 @@ public class SongController {
     @ApiOperation(value = "获取", notes = "获取")
     public ResponseBean SingerSelect() {
         List<Song> songs = songService.allSong();
-
+        System.out.println("ftp.show ====>"+ftpshow);
+        System.out.println("ftp.unit ====>"+ftpunit);
         return ResponseBean.ofSuccess(code, songs);
     }
     @GetMapping(value = {"/SingerSelectByName"})

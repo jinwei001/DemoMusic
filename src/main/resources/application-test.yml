@@ -12,3 +12,7 @@ server:
 mybatis:
   type-aliases-package : com.ys.music.mapper
   mapper-locations : classpath:com/ys/music/mapper/*.xml
+
+ftp:
+  show : 192.168.20.96
+  unit : 经同意
